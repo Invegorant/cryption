@@ -24,5 +24,7 @@ public class Main
         System.out.println("The sentence without cryption: " + sentence + "\n The sentence with cryption: " +cryptedSentence);
         cryptedSentence = generator.cryptSentence();
         System.out.println("The sentence without cryption: " + sentence + "\n The sentence with cryption: " +cryptedSentence);
+        Decryption decryption = new Decryption(sentence);
+        decryption.decryptSentence();
     }
 }

@@ -6,11 +6,10 @@ import java.util.Random;
 public class Generator
 {
     private final String sentence;
-    private String[] criptionLetterWord;
-    private HashMap<String, String[]> letterCription;
+    public static HashMap<String, String[]> letterCryption;
     private final Random rnd;
-    private String cryptedWord;
-    private String cryptedSymbol;
+    public static String cryptedMessage;
+    public static final int cryptionSymbolsAmount = 5;
 
     public Generator(String sentence)
     {
@@ -18,12 +17,12 @@ public class Generator
         rnd = new Random();
     }
 
-    public char[] generateCriptionLetter() throws NullPointerException
+    public char[] generateCryption() throws NullPointerException
     {
         String alphabet = "0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ?/.," ;
-        char[] letterArray = new char[5];
+        char[] letterArray = new char[cryptionSymbolsAmount];
         char rant;
-        for (int i = 0; i < 5; i++)
+        for (int i = 0; i < cryptionSymbolsAmount; i++)
         {
             rant = alphabet.charAt(rnd.nextInt(alphabet.length()));
             letterArray[i] = (char) rant;
@@ -31,28 +30,27 @@ public class Generator
         return letterArray;
     }
 
-    public String[] criptLetter()
+    public String[] cryptLetter()
     {
-        criptionLetterWord = new String[5];
-        for (int i = 0; i < 5; i++)
+        String[] cryptionLetterWord = new String[cryptionSymbolsAmount];
+        for (int i = 0; i < cryptionSymbolsAmount; i++)
         {
-            String chars = new String(generateCriptionLetter());
-            criptionLetterWord[i] = chars;
+            String chars = new String(generateCryption());
+            cryptionLetterWord[i] = chars;
         }
-        return criptionLetterWord;
+        return cryptionLetterWord;
     }
 
     public HashMap<String, String[]> createPossibleCryptionsForLetters()
     {
-        letterCription = new HashMap<>();
+        letterCryption = new HashMap<>();
 
         char[] sentenceLetter = separateStringToLetter();
         for (char c : sentenceLetter)
         {
-            criptLetter();
-            letterCription.put(String.valueOf(c), criptionLetterWord);
+            letterCryption.put(String.valueOf(c), cryptLetter());
         }
-        return letterCription;
+        return letterCryption;
     }
 
     public char[] separateStringToLetter()
@@ -64,15 +62,15 @@ public class Generator
     {
         char[] letters = separateStringToLetter();
         String[] currentCryption;
-        cryptedWord = "";
+        String cryptedString = "";
         int i = 0;
         for (char c : letters)
         {
-            currentCryption = letterCription.get(Character.toString(c));
-            cryptedSymbol = currentCryption[rnd.nextInt(5)];
-            cryptedWord = String.format("%s%s" , cryptedWord, cryptedSymbol);
+            currentCryption = letterCryption.get(Character.toString(c));
+            String cryptedSymbol = currentCryption[rnd.nextInt(cryptionSymbolsAmount)];
+            cryptedString = String.format("%s%s" , cryptedString, cryptedSymbol);
             i++;
         }
-        return cryptedWord;
+        return cryptedMessage = cryptedString;
     }
 }
