@@ -9,7 +9,7 @@ public class Generator
     private String[] criptionLetterWord;
     private HashMap<String, String[]> letterCription;
     private final Random rnd;
-    private String cryptedWord = "";
+    private String cryptedWord;
     private String cryptedSymbol;
 
     public Generator(String sentence)
@@ -64,6 +64,7 @@ public class Generator
     {
         char[] letters = separateStringToLetter();
         String[] currentCryption;
+        cryptedWord = "";
         int i = 0;
         for (char c : letters)
         {
@@ -74,5 +75,4 @@ public class Generator
         }
         return cryptedWord;
     }
-    //ToDo if AMOGUS or Among Us - it incrypts to SUS
 }
